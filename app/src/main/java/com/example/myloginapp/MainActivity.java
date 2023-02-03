@@ -30,14 +30,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG =
-            MainActivity.class.getSimpleName();
+
 
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private String enteredUsername;
     private String enteredPassword;
-    private String storedPassword;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
