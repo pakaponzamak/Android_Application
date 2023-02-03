@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, ActivityUser.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(MainActivity.this, "Not Correct. Try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Incorrect. Try again", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
