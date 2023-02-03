@@ -87,7 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.w(TAG, "Error writing document", e);
                                 }
                             });
-                }
+                }if(teacherOrStudent != 2 && teacherOrStudent != 1)
+                    Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(RegisterActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
