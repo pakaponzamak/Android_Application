@@ -82,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         String mUsername = document.getString("username");
                         String mPassword = document.getString("password");
+                        String mRole = document.getString("role");
 
                         if (enteredUsername.equals(mUsername) && enteredPassword.equals(mPassword)) {
-                            Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Correct. You login as a "+ mRole, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, ActivityUser.class);
                             startActivity(intent);
                         } else {
