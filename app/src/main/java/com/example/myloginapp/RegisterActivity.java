@@ -46,33 +46,28 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordEditText = findViewById(R.id.et_password);
 
         Button registerButton = findViewById(R.id.btn_register);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = mUsernameEditText.getText().toString();
-                String password = mPasswordEditText.getText().toString();
-                if(!(username.equals("") || password.equals(""))) {
-                    Map<String, Object> user = new HashMap<>();
-                    user.put(KEY_USERNAME, username);
-                    user.put(KEY_PASSWORD, password);
-                    db.collection("My user").document(username).set(user)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error writing document", e);
-                                }
-                            });
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
-                }
+
+        registerButton.setOnClickListener(v -> {
+            String username = mUsernameEditText.getText().toString();
+            String password = mPasswordEditText.getText().toString();
+            if(!(username.equals("") || password.equals(""))) {
+                Map<String, Object> user = new HashMap<>();
+                user.put(KEY_USERNAME, username);
+                user.put(KEY_PASSWORD, password);
+                db.collection("My user").document(username).set(user)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                            finish();
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+            }
+            else{
+                Toast.makeText(RegisterActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
             }
         });
 
