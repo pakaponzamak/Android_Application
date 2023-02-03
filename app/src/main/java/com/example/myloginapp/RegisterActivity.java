@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -36,6 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_ROLE = "role";
+    int teacherOrStudent = 0;
+    public String role = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
             String username = mUsernameEditText.getText().toString();
             String password = mPasswordEditText.getText().toString();
             if(!(username.equals("") || password.equals(""))) {
+                if(teacherOrStudent == 1){
                 Map<String, Object> user = new HashMap<>();
                 user.put(KEY_USERNAME, username);
                 user.put(KEY_PASSWORD, password);
+                user.put(KEY_ROLE, role);
                 db.collection("My user").document(username).set(user)
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -65,6 +71,23 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.w(TAG, "Error writing document", e);
                             }
                         });
+                }if(teacherOrStudent == 2){
+                    Map<String, Object> user = new HashMap<>();
+                    user.put(KEY_USERNAME, username);
+                    user.put(KEY_PASSWORD, password);
+                    user.put(KEY_ROLE, role);
+                    db.collection("My user").document(username).set(user)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                finish();
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+                }
             }
             else{
                 Toast.makeText(RegisterActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
@@ -74,4 +97,27 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    public void onRadioButtonClicked(View view) {
+        //Toast.makeText(RegisterActivity.this, "Radio Button Selected", Toast.LENGTH_SHORT).show();
+        boolean checked = ((RadioButton) view).isChecked();
+        switch (view.getId()) {
+            case R.id.student_radio:
+                if (checked) {
+                    Toast.makeText(RegisterActivity.this, "Student Selected", Toast.LENGTH_SHORT).show();
+                    role = "Student";
+                    teacherOrStudent = 1;
+                }
+                break;
+            case R.id.teacher_radio:
+                if (checked) {
+                    Toast.makeText(RegisterActivity.this, "Teacher Selected", Toast.LENGTH_SHORT).show();
+                    role = "Teacher";
+                    teacherOrStudent = 2;
+                }
+                break;
+            default:
+                // Do nothing.
+                break;
+        }
+    }
 }
