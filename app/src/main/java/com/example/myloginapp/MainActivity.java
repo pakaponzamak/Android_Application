@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private String enteredUsername;
     private String enteredPassword;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override

@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
