@@ -25,12 +25,29 @@ public class ActivityTeacher extends AppCompatActivity {
 
         //Student Object
         StudentData pakapon = new StudentData("pakapon","19","19.00");
-        StudentData baramee = new StudentData("baramee","20","18.00");
+        StudentData baramee1 = new StudentData("baramee","20","18.00");
+        StudentData baramee2 = new StudentData("baramee","20","18.00");
+        StudentData baramee3 = new StudentData("baramee","20","18.00");
+        StudentData baramee4 = new StudentData("baramee","20","18.00");
+        StudentData baramee5 = new StudentData("baramee","20","18.00");
+        StudentData baramee6 = new StudentData("baramee","20","18.00");
+        StudentData baramee7 = new StudentData("baramee","20","18.00");
+        StudentData baramee8 = new StudentData("baramee","20","18.00");
+        StudentData baramee9 = new StudentData("baramee","20","18.00");
+
 
 
         ArrayList<StudentData> studentList = new ArrayList<>();
         studentList.add(pakapon);
-        studentList.add(baramee);
+        studentList.add(baramee1);
+        studentList.add(baramee2);
+        studentList.add(baramee3);
+        studentList.add(baramee4);
+        studentList.add(baramee5);
+        studentList.add(baramee6);
+        studentList.add(baramee7);
+        studentList.add(baramee8);
+        studentList.add(baramee9);
 
         StudentListAdapter adapter = new StudentListAdapter(this,R.layout.student_list_layout,studentList);
         mListView.setAdapter(adapter);
