@@ -85,9 +85,16 @@ public class MainActivity extends AppCompatActivity {
                         String mRole = document.getString("role");
 
                         if (enteredUsername.equals(mUsername) && enteredPassword.equals(mPassword)) {
-                            Toast.makeText(MainActivity.this, "Correct. You login as a "+ mRole, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, ActivityUser.class);
-                            startActivity(intent);
+
+                            if(mRole.equals("Teacher")) {
+                                Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, ActivityTeacher.class);
+                                startActivity(intent);
+                            }if(mRole.equals("Student")){
+                                Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, ActivityUser.class);
+                                startActivity(intent);
+                            }
                         } else {
                             Toast.makeText(MainActivity.this, "Incorrect. Try again", Toast.LENGTH_SHORT).show();
                         }
