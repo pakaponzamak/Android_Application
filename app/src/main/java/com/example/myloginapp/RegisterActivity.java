@@ -64,11 +64,12 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task){
                     DocumentSnapshot document = task.getResult();
-                    refUsername = document.getString("username");
-                }
-            });
+                    if (task.isSuccessful())
+                        refUsername = document.getString("username");
 
-            if(!(username.equals("") || password.equals(""))) {
+
+
+            if(!(username.equals("") || password.equals("") || username.equals(refUsername))) {
                 if(teacherOrStudent == 1){
                 Map<String, Object> user = new HashMap<>();
                 user.put(KEY_USERNAME, username);
@@ -105,8 +106,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(RegisterActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
             }
+                }
+            });
+
         });
 
     }
