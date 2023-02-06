@@ -5,8 +5,10 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.content.Intent;
@@ -40,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String KEY_ROLE = "role";
     int teacherOrStudent = 0;
     public String role = "";
+    public String refUsername;
+    public String refPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,17 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(v -> {
             String username = mUsernameEditText.getText().toString();
             String password = mPasswordEditText.getText().toString();
+
+            DocumentReference docRef = db.collection("My user").document(username);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task){
+                    DocumentSnapshot document = task.getResult();
+                    refUsername = document.getString("username");
+                    refPassword = document.getString("password");
+                }
+            });
+
             if(!(username.equals("") || password.equals(""))) {
                 if(teacherOrStudent == 1){
                 Map<String, Object> user = new HashMap<>();
