@@ -44,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
     int teacherOrStudent = 0;
     public String role = "";
     public String refUsername;
-    public String refPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task){
                     DocumentSnapshot document = task.getResult();
                     refUsername = document.getString("username");
-                    refPassword = document.getString("password");
                 }
             });
 
