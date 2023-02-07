@@ -108,6 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Enter Something or username is already used");
             }
                 }
             });

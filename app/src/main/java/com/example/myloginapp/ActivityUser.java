@@ -15,6 +15,7 @@ public class ActivityUser extends AppCompatActivity {
     private TimePicker mTimePicker;
     private DatePicker mDatePicker;
     private String mSelectedDate;
+    private int date,month,year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,10 @@ public class ActivityUser extends AppCompatActivity {
         mDatePicker.init(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), (view, year, monthOfYear, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, monthOfYear, dayOfMonth);
+            date = calendar.get(Calendar.DATE);
+            month = calendar.get(Calendar.MONTH);
+           // year = calendar.get(Calendar.YEAR);
+
 
             SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
             mSelectedDate = dateFormat.format(calendar.getTime());
