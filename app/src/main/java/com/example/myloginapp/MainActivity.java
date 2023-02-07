@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private String enteredUsername;
     private String enteredPassword;
+    public static final String EXTRA_MESSAGE = "Send it to user activity";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -89,10 +90,12 @@ public class MainActivity extends AppCompatActivity {
                             if(mRole.equals("Teacher")) {
                                 Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, ActivityTeacher.class);
+                                intent.putExtra(EXTRA_MESSAGE, mUsername);
                                 startActivity(intent);
                             }if(mRole.equals("Student")){
                                 Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, ActivityUser.class);
+                                intent.putExtra(EXTRA_MESSAGE, mUsername);
                                 startActivity(intent);
                             }
                         } else {
@@ -109,4 +112,4 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Enter Something", Toast.LENGTH_SHORT).show();
         }
     }
-}//
+}

@@ -41,8 +41,10 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_ROLE = "role";
+
     int teacherOrStudent = 0;
     public String role = "";
+    public String time = "";
     public String refUsername;
 
     @Override
@@ -69,47 +71,48 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-            if(!(username.equals("") || password.equals("") || username.equals(refUsername))) {
-                if(teacherOrStudent == 1){
-                Map<String, Object> user = new HashMap<>();
-                user.put(KEY_USERNAME, username);
-                user.put(KEY_PASSWORD, password);
-                user.put(KEY_ROLE, role);
-                db.collection("My user").document(username).set(user)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                            finish();
-                        })
+                    if(!(username.equals("") || password.equals("") || username.equals(refUsername))) {
+                        if(teacherOrStudent == 1){
+                            Map<String, Object> user = new HashMap<>();
+                            user.put(KEY_USERNAME, username);
+                            user.put(KEY_PASSWORD, password);
+                            user.put(KEY_ROLE, role);
+                            //user.put(KEY_TIME, time);
+                            db.collection("My user").document(username).set(user)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    })
 
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
-                }if(teacherOrStudent == 2){
-                    Map<String, Object> user = new HashMap<>();
-                    user.put(KEY_USERNAME, username);
-                    user.put(KEY_PASSWORD, password);
-                    user.put(KEY_ROLE, role);
-                    db.collection("My user").document(username).set(user)
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(RegisterActivity.this, "Saved.", Toast.LENGTH_SHORT).show();
-                                finish();
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error writing document", e);
-                                }
-                            });
-                }if(teacherOrStudent != 2 && teacherOrStudent != 1)
-                    Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
-                Log.w(TAG, "Enter Something or username is already used");
-            }
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+                        }if(teacherOrStudent == 2){
+                            Map<String, Object> user = new HashMap<>();
+                            user.put(KEY_USERNAME, username);
+                            user.put(KEY_PASSWORD, password);
+                            user.put(KEY_ROLE, role);
+                            db.collection("My user").document(username).set(user)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+                        }if(teacherOrStudent != 2 && teacherOrStudent != 1)
+                            Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Enter Something or username is already used");
+                    }
                 }
             });
 

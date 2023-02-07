@@ -23,7 +23,7 @@ public class ActivityTeacher extends AppCompatActivity {
 
         ListView mListView = (ListView) findViewById(R.id.student_list);
 
-        //Student Object
+        //Student Objects
         StudentData pakapon = new StudentData("pakapon","19","19.00");
         StudentData baramee1 = new StudentData("baramee","20","18.00");
         StudentData baramee2 = new StudentData("baramee","20","18.00");
@@ -54,5 +54,5 @@ public class ActivityTeacher extends AppCompatActivity {
 
 
 
-}
+    }
 }

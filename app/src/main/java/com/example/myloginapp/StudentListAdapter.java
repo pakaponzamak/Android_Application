@@ -43,6 +43,5 @@ public class StudentListAdapter extends ArrayAdapter<StudentData> {
         tvTime.setText(time);
 
         return mItemView;
-
     }
 }
