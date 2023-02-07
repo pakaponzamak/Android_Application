@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.put(KEY_ROLE, role);
                     db.collection("My user").document(username).set(user)
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Saved.", Toast.LENGTH_SHORT).show();
                                 finish();
                             })
                             .addOnFailureListener(new OnFailureListener() {

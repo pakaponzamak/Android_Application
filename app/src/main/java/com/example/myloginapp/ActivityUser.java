@@ -30,7 +30,7 @@ public class ActivityUser extends AppCompatActivity {
             calendar.set(year, monthOfYear, dayOfMonth);
             date = calendar.get(Calendar.DATE);
             month = calendar.get(Calendar.MONTH);
-           // year = calendar.get(Calendar.YEAR);
+           /// year = calendar.get(Calendar.YEAR);
 
 
             SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();

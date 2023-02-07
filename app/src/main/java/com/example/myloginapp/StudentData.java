@@ -32,5 +32,6 @@ public class StudentData {
     public void getTime(String time){
         this.time = time;
     }
+
 }
 
