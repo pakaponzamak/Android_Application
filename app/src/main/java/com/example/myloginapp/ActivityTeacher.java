@@ -3,12 +3,19 @@ package com.example.myloginapp;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ActivityTeacher extends AppCompatActivity {
@@ -23,6 +30,23 @@ public class ActivityTeacher extends AppCompatActivity {
 
         ListView mListView = (ListView) findViewById(R.id.student_list);
 
+
+        db.collection("My user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<String> studentList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult())
+                        studentList.add(document.getId());
+                    Toast.makeText(ActivityTeacher.this,studentList.toString(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(ActivityTeacher.this,"Error", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        /*
         //Student Objects
         StudentData pakapon = new StudentData("pakapon","19","19.00");
         StudentData baramee1 = new StudentData("baramee","20","18.00");
@@ -51,7 +75,7 @@ public class ActivityTeacher extends AppCompatActivity {
 
         StudentListAdapter adapter = new StudentListAdapter(this,R.layout.student_list_layout,studentList);
         mListView.setAdapter(adapter);
-
+*/
 
 
     }
