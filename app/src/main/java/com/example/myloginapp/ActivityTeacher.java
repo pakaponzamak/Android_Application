@@ -38,7 +38,15 @@ public class ActivityTeacher extends AppCompatActivity {
                     List<String> studentList = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult())
                         studentList.add(document.getId());
-                    Toast.makeText(ActivityTeacher.this,studentList.toString(), Toast.LENGTH_SHORT).show();
+                    for(int i =0;i < 5;i++){
+                    StudentData pakapon = new StudentData(studentList.get(i),"19","19.00");
+                        ArrayList<StudentData> studentListt = new ArrayList<>();
+                        studentListt.add(pakapon);
+                        StudentListAdapter adapter = new StudentListAdapter(getApplicationContext(),R.layout.student_list_layout,studentListt);
+                        mListView.setAdapter(adapter);
+                    }
+
+                    Toast.makeText(ActivityTeacher.this, studentList.get(1), Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(ActivityTeacher.this,"Error", Toast.LENGTH_SHORT).show();
