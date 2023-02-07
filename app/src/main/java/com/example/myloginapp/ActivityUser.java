@@ -38,18 +38,19 @@ public class ActivityUser extends AppCompatActivity {
 
     public String time = "";
     public String mSelectedDate = "";
-    DocumentReference docRef = db.collection("My user").document("1");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        Intent intent = getIntent();
-        String userFromMainActivity = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
 
         mTimePicker = findViewById(R.id.timePicker);
         mDatePicker = findViewById(R.id.datePicker);
-        //Username display on top
+        //Username display on top and data from Main
+        Intent intent = getIntent();
+        String userFromMainActivity = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         username = findViewById(R.id.textView6);
         username.setText("Username : " +userFromMainActivity);
 
@@ -64,7 +65,6 @@ public class ActivityUser extends AppCompatActivity {
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
             // Handle time change event here
             // For example, you can show a Toast to display the selected time
-
             time = "Time selected : "+ hourOfDay + "."+minute;
             //Toast.makeText(ActivityUser.this,time, Toast.LENGTH_SHORT).show();
         });
