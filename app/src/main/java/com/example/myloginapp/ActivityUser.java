@@ -65,7 +65,11 @@ public class ActivityUser extends AppCompatActivity {
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
             // Handle time change event here
             // For example, you can show a Toast to display the selected time
+            if(hourOfDay == 0){
+                hourOfDay = 12;
+            }
             time = "Time selected : "+ hourOfDay + "."+minute;
+
             //Toast.makeText(ActivityUser.this,time, Toast.LENGTH_SHORT).show();
         });
 
