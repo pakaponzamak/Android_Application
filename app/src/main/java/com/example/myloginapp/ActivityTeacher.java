@@ -10,18 +10,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ActivityTeacher extends AppCompatActivity {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private ListView mlistview;
+    private String mCheck;
+    private ArrayList<String> mStudentName = new ArrayList<>();
+    private ArrayList<String> mDateTime = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +33,23 @@ public class ActivityTeacher extends AppCompatActivity {
         setContentView(R.layout.activity_teacher);
 
         ListView mListView = (ListView) findViewById(R.id.student_list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,mStudentName);
 
+        mListView.setAdapter(arrayAdapter);
 
         db.collection("My user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    List<String> studentList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult())
-                        studentList.add(document.getId());
-                    List<String> timeList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult())
-                        timeList.add(document.getString("Time"));
-                    List<String> dateList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult())
-                        dateList.add(document.getString("Date"));
-                    for(int i =0;i < 5;i++){
-                    StudentData pakapon = new StudentData(studentList.get(1),dateList.get(1),timeList.get(1));
-                        ArrayList<StudentData> studentListForAdapter = new ArrayList<>();
-                        studentListForAdapter.add(pakapon);
-                        StudentListAdapter adapter = new StudentListAdapter(getApplicationContext(),R.layout.student_list_layout,studentListForAdapter);
-                        mListView.setAdapter(adapter);
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        mCheck = document.getString("role");
+                        if(mCheck.equals("Student"))
+                            mStudentName.add(document.getString("username") + "\nDate : " + document.getString("Date") + "  " + document.getString("Time"));
+                        arrayAdapter.notifyDataSetChanged();
+
                     }
 
-                    Toast.makeText(ActivityTeacher.this, studentList.get(1), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ActivityTeacher.this, mStudentName.get(1), Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(ActivityTeacher.this,"Error", Toast.LENGTH_SHORT).show();
