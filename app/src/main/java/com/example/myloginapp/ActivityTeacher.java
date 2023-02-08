@@ -38,11 +38,17 @@ public class ActivityTeacher extends AppCompatActivity {
                     List<String> studentList = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult())
                         studentList.add(document.getId());
+                    List<String> timeList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult())
+                        timeList.add(document.getString("Time"));
+                    List<String> dateList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult())
+                        dateList.add(document.getString("Date"));
                     for(int i =0;i < 5;i++){
-                    StudentData pakapon = new StudentData(studentList.get(i),"19","19.00");
-                        ArrayList<StudentData> studentListt = new ArrayList<>();
-                        studentListt.add(pakapon);
-                        StudentListAdapter adapter = new StudentListAdapter(getApplicationContext(),R.layout.student_list_layout,studentListt);
+                    StudentData pakapon = new StudentData(studentList.get(1),dateList.get(1),timeList.get(1));
+                        ArrayList<StudentData> studentListForAdapter = new ArrayList<>();
+                        studentListForAdapter.add(pakapon);
+                        StudentListAdapter adapter = new StudentListAdapter(getApplicationContext(),R.layout.student_list_layout,studentListForAdapter);
                         mListView.setAdapter(adapter);
                     }
 
