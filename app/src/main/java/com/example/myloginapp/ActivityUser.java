@@ -65,67 +65,22 @@ public class ActivityUser extends AppCompatActivity {
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
             // Handle time change event here
             // For example, you can show a Toast to display the selected time
-            /*if(hourOfDay == 0){
-                hourOfDay = 12;
-            }
-            String AM_PM;
-            if(hourOfDay < 12) {
-                AM_PM = "AM";
-            } else {
-                AM_PM = "PM";
-            }*/
-
             time = "Time selected : "+ hourOfDay + "."+minute;
 
-            //Toast.makeText(ActivityUser.this,time, Toast.LENGTH_SHORT).show();
         });
 
         Button schedule_button = findViewById(R.id.scheduleButton);
-        schedule_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(ActivityUser.this,mSelectedDate + " " + time, Toast.LENGTH_SHORT).show();
-                DocumentReference docRef = db.collection("My user").document(userFromMainActivity);
-                Map<String, Object> dateAndTime = new HashMap<>();
-                dateAndTime.put(KEY_TIME,time);
-                dateAndTime.put(KEY_DATE,mSelectedDate);
-                docRef.update(dateAndTime).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ActivityUser.this,mSelectedDate + " " + time, Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
-            }
+        schedule_button.setOnClickListener(v -> {
+            DocumentReference docRef = db.collection("My user").document(userFromMainActivity);
+            Map<String, Object> dateAndTime = new HashMap<>();
+            dateAndTime.put(KEY_TIME,time);
+            dateAndTime.put(KEY_DATE,mSelectedDate);
+            docRef.update(dateAndTime).addOnSuccessListener(aVoid -> {
+                Toast.makeText(ActivityUser.this,mSelectedDate + " " + time, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "DocumentSnapshot successfully written!");
+            })
+                    .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
         });
 
-
-
-/*
-        Map<String, Object> dateAndTime = new HashMap<>();
-        dateAndTime.put(KEY_TIME,time);
-        //dateAndTime.put("state", "CA");
-
-        db.collection("My user").document("1")
-                .set(dateAndTime)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                        Toast.makeText(ActivityUser.this,time, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });*/
     }
 }

@@ -53,21 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkCredentials();
-            }
-        });
+        loginbtn.setOnClickListener(v -> checkCredentials());
 
         MaterialButton sign_in = (MaterialButton) findViewById(R.id.sign_in);
-        sign_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"SIGN-IN!!",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        sign_in.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this,"SIGN-IN!!",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -76,35 +68,32 @@ public class MainActivity extends AppCompatActivity {
         enteredPassword = mPasswordEditText.getText().toString();
         if(!(enteredUsername.equals("") || enteredPassword.equals(""))) {
             DocumentReference docRef = db.collection("My user").document(enteredUsername);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        String mUsername = document.getString("username");
-                        String mPassword = document.getString("password");
-                        String mRole = document.getString("role");
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    String mUsername = document.getString("username");
+                    String mPassword = document.getString("password");
+                    String mRole = document.getString("role");
 
-                        if (enteredUsername.equals(mUsername) && enteredPassword.equals(mPassword)) {
+                    if (enteredUsername.equals(mUsername) && enteredPassword.equals(mPassword)) {
 
-                            if(mRole.equals("Teacher")) {
-                                Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, ActivityTeacher.class);
-                                intent.putExtra(EXTRA_MESSAGE, mUsername);
-                                startActivity(intent);
-                            }if(mRole.equals("Student")){
-                                Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, ActivityUser.class);
-                                intent.putExtra(EXTRA_MESSAGE, mUsername);
-                                startActivity(intent);
-                            }
-                        } else {
-                            Toast.makeText(MainActivity.this, "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+                        if(mRole.equals("Teacher")) {
+                            Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, ActivityTeacher.class);
+                            intent.putExtra(EXTRA_MESSAGE, mUsername);
+                            startActivity(intent);
+                        }if(mRole.equals("Student")){
+                            Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, ActivityUser.class);
+                            intent.putExtra(EXTRA_MESSAGE, mUsername);
+                            startActivity(intent);
                         }
-
                     } else {
-                        Log.d(TAG, "get failed with", task.getException());
+                        Toast.makeText(MainActivity.this, "Incorrect. Try again", Toast.LENGTH_SHORT).show();
                     }
+
+                } else {
+                    Log.d(TAG, "get failed with", task.getException());
                 }
             });
         }

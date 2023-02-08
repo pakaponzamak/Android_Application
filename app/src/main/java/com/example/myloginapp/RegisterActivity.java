@@ -62,57 +62,44 @@ public class RegisterActivity extends AppCompatActivity {
             String password = mPasswordEditText.getText().toString();
 
             DocumentReference docRef = db.collection("My user").document(username);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task){
-                    DocumentSnapshot document = task.getResult();
-                    if (task.isSuccessful())
-                        refUsername = document.getString("username");
+            docRef.get().addOnCompleteListener(task -> {
+                DocumentSnapshot document = task.getResult();
+                if (task.isSuccessful())
+                    refUsername = document.getString("username");
 
 
 
-                    if(!(username.equals("") || password.equals("") || username.equals(refUsername))) {
-                        if(teacherOrStudent == 1){
-                            Map<String, Object> user = new HashMap<>();
-                            user.put(KEY_USERNAME, username);
-                            user.put(KEY_PASSWORD, password);
-                            user.put(KEY_ROLE, role);
-                            //user.put(KEY_TIME, time);
-                            db.collection("My user").document(username).set(user)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    })
+                if(!(username.equals("") || password.equals("") || username.equals(refUsername))) {
+                    if(teacherOrStudent == 1){
+                        Map<String, Object> user = new HashMap<>();
+                        user.put(KEY_USERNAME, username);
+                        user.put(KEY_PASSWORD, password);
+                        user.put(KEY_ROLE, role);
+                        //user.put(KEY_TIME, time);
+                        db.collection("My user").document(username).set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                })
 
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error writing document", e);
-                                        }
-                                    });
-                        }if(teacherOrStudent == 2){
-                            Map<String, Object> user = new HashMap<>();
-                            user.put(KEY_USERNAME, username);
-                            user.put(KEY_PASSWORD, password);
-                            user.put(KEY_ROLE, role);
-                            db.collection("My user").document(username).set(user)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error writing document", e);
-                                        }
-                                    });
-                        }if(teacherOrStudent != 2 && teacherOrStudent != 1)
-                            Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
-                        Log.w(TAG, "Enter Something or username is already used");
-                    }
+                                .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
+                    }if(teacherOrStudent == 2){
+                        Map<String, Object> user = new HashMap<>();
+                        user.put(KEY_USERNAME, username);
+                        user.put(KEY_PASSWORD, password);
+                        user.put(KEY_ROLE, role);
+                        db.collection("My user").document(username).set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(RegisterActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
+                    }if(teacherOrStudent != 2 && teacherOrStudent != 1)
+                        Toast.makeText(RegisterActivity.this, "Please Choose Your Role", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this, "Enter Something or username is already used", Toast.LENGTH_SHORT).show();
+                    Log.w(TAG, "Enter Something or username is already used");
                 }
             });
 
@@ -122,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void onRadioButtonClicked(View view) {
-        //Toast.makeText(RegisterActivity.this, "Radio Button Selected", Toast.LENGTH_SHORT).show();
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
             case R.id.student_radio:
