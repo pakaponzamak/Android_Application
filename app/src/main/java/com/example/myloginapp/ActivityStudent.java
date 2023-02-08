@@ -2,21 +2,17 @@ package com.example.myloginapp;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,7 +21,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActivityUser extends AppCompatActivity {
+public class ActivityStudent extends AppCompatActivity {
 
     private TimePicker mTimePicker;
     private DatePicker mDatePicker;
@@ -59,7 +55,7 @@ public class ActivityUser extends AppCompatActivity {
             calendar.set(year, monthOfYear, dayOfMonth);
             SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
             mSelectedDate = dateFormat.format(calendar.getTime());
-            Toast.makeText(ActivityUser.this,mSelectedDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityStudent.this,mSelectedDate, Toast.LENGTH_SHORT).show();
         });
         mTimePicker.setIs24HourView(true);
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
@@ -76,7 +72,7 @@ public class ActivityUser extends AppCompatActivity {
             dateAndTime.put(KEY_TIME,time);
             dateAndTime.put(KEY_DATE,mSelectedDate);
             docRef.update(dateAndTime).addOnSuccessListener(aVoid -> {
-                Toast.makeText(ActivityUser.this,mSelectedDate + " " + time, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityStudent.this,mSelectedDate + " " + time, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "DocumentSnapshot successfully written!");
             })
                     .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));

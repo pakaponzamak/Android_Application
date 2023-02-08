@@ -1,33 +1,19 @@
 package com.example.myloginapp;
 
 import static android.content.ContentValues.TAG;
-import static com.example.myloginapp.RegisterActivity.KEY_USERNAME;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Source;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
                         if(mRole.equals("Teacher")) {
                             Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, ActivityTeacher.class);
-                            intent.putExtra(EXTRA_MESSAGE, mUsername);
+                            //intent.putExtra(EXTRA_MESSAGE, mUsername);
                             startActivity(intent);
                         }if(mRole.equals("Student")){
                             Toast.makeText(MainActivity.this, "Correct. You login as a " + mRole, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, ActivityUser.class);
+                            Intent intent = new Intent(MainActivity.this, ActivityStudent.class);
                             intent.putExtra(EXTRA_MESSAGE, mUsername);
                             startActivity(intent);
                         }

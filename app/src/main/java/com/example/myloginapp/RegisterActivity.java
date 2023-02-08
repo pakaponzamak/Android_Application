@@ -44,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     int teacherOrStudent = 0;
     public String role = "";
-    public String time = "";
     public String refUsername;
 
     @Override
