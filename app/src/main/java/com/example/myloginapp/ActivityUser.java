@@ -61,13 +61,20 @@ public class ActivityUser extends AppCompatActivity {
             mSelectedDate = dateFormat.format(calendar.getTime());
             Toast.makeText(ActivityUser.this,mSelectedDate, Toast.LENGTH_SHORT).show();
         });
-
+        mTimePicker.setIs24HourView(true);
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
             // Handle time change event here
             // For example, you can show a Toast to display the selected time
-            if(hourOfDay == 0){
+            /*if(hourOfDay == 0){
                 hourOfDay = 12;
             }
+            String AM_PM;
+            if(hourOfDay < 12) {
+                AM_PM = "AM";
+            } else {
+                AM_PM = "PM";
+            }*/
+
             time = "Time selected : "+ hourOfDay + "."+minute;
 
             //Toast.makeText(ActivityUser.this,time, Toast.LENGTH_SHORT).show();
