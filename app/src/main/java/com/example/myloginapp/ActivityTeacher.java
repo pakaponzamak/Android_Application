@@ -41,7 +41,8 @@ public class ActivityTeacher extends AppCompatActivity {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     mCheck = document.getString("role");
                     if(mCheck.equals("Student"))
-                        mStudentName.add(document.getString("username") + "\nDate : " + document.getString("Date") + "  " + document.getString("Time"));
+                        mStudentName.add(document.getString("username") + "\nDate : " +
+                                         document.getString("Date") + "\nTime selected : " + document.getString("Time selected"));
                     arrayAdapter.notifyDataSetChanged();
 
                 }
