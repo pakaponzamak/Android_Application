@@ -28,7 +28,7 @@ public class ActivityStudent extends AppCompatActivity {
     private TextView username;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static final String KEY_TIME = "Time";
+    public static final String KEY_TIME = "Time selected";
     public static final String KEY_DATE = "Date";
 
 
@@ -61,7 +61,7 @@ public class ActivityStudent extends AppCompatActivity {
         mTimePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
             // Handle time change event here
             // For example, you can show a Toast to display the selected time
-            time = "Time selected : "+ hourOfDay + "."+minute;
+            time = hourOfDay + "."+minute;
 
         });
 
