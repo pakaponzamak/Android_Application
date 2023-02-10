@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private String enteredUsername;
     private String enteredPassword;
+    private TextView forgot_password;
     public static final String EXTRA_MESSAGE = "Send it to user activity";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mUsernameEditText = findViewById(R.id.username);
         mPasswordEditText = findViewById(R.id.password);
@@ -41,12 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         loginbtn.setOnClickListener(v -> checkCredentials());
 
-        MaterialButton sign_in = (MaterialButton) findViewById(R.id.sign_in);
+        MaterialButton sign_in = findViewById(R.id.sign_in);
         sign_in.setOnClickListener(v -> {
             Toast.makeText(MainActivity.this,"SIGN-IN!!",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+
     }
 
     private void checkCredentials() {
