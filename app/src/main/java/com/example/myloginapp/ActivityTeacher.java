@@ -31,7 +31,7 @@ public class ActivityTeacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        ListView mListView = (ListView) findViewById(R.id.student_list);
+        ListView mListView = findViewById(R.id.student_list);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,mStudentName);
 
         mListView.setAdapter(arrayAdapter);

@@ -32,8 +32,8 @@ public class ActivityStudent extends AppCompatActivity {
     public static final String KEY_DATE = "Date";
 
 
-    public String time = "";
-    public String mSelectedDate = "";
+    public String time;
+    public String mSelectedDate;
 
 
     @Override
